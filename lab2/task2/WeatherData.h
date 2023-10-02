@@ -51,10 +51,8 @@ private:
 		std::cout << "Humidity: " << std::endl;
 		UpdateIndicator(m_humidity, data.humidity);
 
-
 		std::cout << "Pressure: " << std::endl;
 		UpdateIndicator(m_pressure, data.pressure);
-
 	}
 
 	void UpdateIndicator(WeatherIndicatorInfo& statData, double indicatorValue)
