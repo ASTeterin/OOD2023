@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <climits>
 #include "Observer.h"
@@ -10,35 +11,54 @@ struct SWeatherInfo
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
+	std::string stationName;
+};
+
+struct StatData
+{
+	double maxValue = -std::numeric_limits<double>::infinity();
+	double minValue = std::numeric_limits<double>::infinity();
+	double averageVlue = 0;
 };
 
 //выделить в отдельный класс 
 class WeatherIndicatorStorage
 {
 public:
-	double GetMaxValue(double currentValue)
+	void UpdateMaxValue(double currentValue)
 	{
 		if (m_maxValue < currentValue)
 		{
 			m_maxValue = currentValue;
 		}
+	}
 
+	double GetMaxValue()
+	{
 		return m_maxValue;
 	}
 
-	double GetMinValue(double currentValue)
+	void UpdateMinValue(double currentValue)
 	{
 		if (m_minValue > currentValue)
 		{
 			m_minValue = currentValue;
 		}
+	}
+
+	double GetMinValue()
+	{
 		return m_minValue;
 	}
 
-	double GetAvarageValue(double currentValue)
+	void UpdateAverageValue(double currentValue)
 	{
 		m_accumulatedValue += currentValue;
 		++m_measurementsNumber;
+	}
+
+	double GetAvarageValue()
+	{
 		return m_accumulatedValue / m_measurementsNumber;
 	}
 
@@ -58,6 +78,7 @@ private:
 	*/
 	void Update(SWeatherInfo const& data) override
 	{
+		std::cout << "Station name " << data.stationName << std::endl;
 		std::cout << "Current Temp " << data.temperature << std::endl;
 		std::cout << "Current Hum " << data.humidity << std::endl;
 		std::cout << "Current Pressure " << data.pressure << std::endl;
@@ -68,11 +89,19 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 public:
-	CStatsDisplay(WeatherIndicatorStorage temperatureStorage, WeatherIndicatorStorage pressureStorage, WeatherIndicatorStorage humidityStorage)
+	WeatherIndicatorStorage GetTemperature(std::string name)
 	{
-		m_temperatureStorage = temperatureStorage;
-		m_pressureStorage = pressureStorage;
-		m_humidityStorage = humidityStorage;
+		return m_temperatureStorage[name];
+	}
+
+	WeatherIndicatorStorage GetPressure(std::string name)
+	{
+		return m_pressureStorage[name];
+	}
+
+	WeatherIndicatorStorage GetHumidity(std::string name)
+	{
+		return m_humidityStorage[name];
 	}
 
 private:
@@ -82,32 +111,53 @@ private:
 	*/
 	void Update(SWeatherInfo const& data) override
 	{
+		if (m_temperatureStorage.find(data.stationName) == m_temperatureStorage.cend())
+		{
+			m_temperatureStorage[data.stationName] = WeatherIndicatorStorage();
+		}
+		if (m_humidityStorage.find(data.stationName) == m_humidityStorage.cend())
+		{
+			m_humidityStorage[data.stationName] = WeatherIndicatorStorage();
+		}
+		if (m_pressureStorage.find(data.stationName) == m_pressureStorage.cend())
+		{
+			m_pressureStorage[data.stationName] = WeatherIndicatorStorage();
+		}
+		std::cout << "Station name: " << data.stationName << std::endl;
 		std::cout << "Temperature: " << std::endl;
-		UpdateIndicator(m_temperatureStorage, data.temperature);
+		UpdateIndicator(m_temperatureStorage[data.stationName], data.temperature);
 
 		std::cout << "Humidity: " << std::endl;
-		UpdateIndicator(m_humidityStorage, data.humidity);
+		UpdateIndicator(m_humidityStorage[data.stationName], data.humidity);
 
 		std::cout << "Pressure: " << std::endl;
-		UpdateIndicator(m_pressureStorage, data.pressure);
+		UpdateIndicator(m_pressureStorage[data.stationName], data.pressure);
 	}
 
 	void UpdateIndicator(WeatherIndicatorStorage& storage, double indicatorValue)
 	{
-		std::cout << "Max value " << storage.GetMaxValue(indicatorValue) << std::endl;
-		std::cout << "Min value " << storage.GetMinValue(indicatorValue) << std::endl;
-		std::cout << "Average value " << storage.GetAvarageValue(indicatorValue) << std::endl;
+		storage.UpdateMaxValue(indicatorValue);
+		storage.UpdateMinValue(indicatorValue);
+		storage.UpdateAverageValue(indicatorValue);
+		std::cout << "Max value " << storage.GetMaxValue() << std::endl;
+		std::cout << "Min value " << storage.GetMinValue() << std::endl;
+		std::cout << "Average value " << storage.GetAvarageValue() << std::endl;
 		std::cout << "----------------" << std::endl;
 	}
 
-	WeatherIndicatorStorage m_temperatureStorage;
-	WeatherIndicatorStorage m_pressureStorage;
-	WeatherIndicatorStorage m_humidityStorage;
+	std::map<std::string, WeatherIndicatorStorage> m_temperatureStorage;
+	std::map < std::string, WeatherIndicatorStorage> m_pressureStorage;
+	std::map < std::string, WeatherIndicatorStorage> m_humidityStorage;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
 {
 public:
+
+	CWeatherData(std::string name)
+		: m_stationName(name)
+	{
+	}
 	// Температура в градусах Цельсия
 	double GetTemperature()const
 	{
@@ -122,6 +172,11 @@ public:
 	double GetPressure()const
 	{
 		return m_pressure;
+	}
+
+	std::string GetName() const
+	{
+		return m_stationName;
 	}
 
 	void MeasurementsChanged()
@@ -144,10 +199,12 @@ protected:
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();
+		info.stationName = GetName();
 		return info;
 	}
 private:
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;	
 	double m_pressure = 760.0;	
+	std::string m_stationName;
 };

@@ -4,7 +4,7 @@
 struct IDanceBehavior
 {
 	virtual ~IDanceBehavior() {};
-	virtual void Dance() = 0; // подумать, константный метод
+	virtual void Dance() const = 0; // подумать, константный метод
 };
 
 #endif

@@ -7,7 +7,10 @@ int main()
 	CDisplay display;
 	wd.RegisterObserver(display);
 
-	CStatsDisplay statsDisplay;
+	WeatherIndicatorStorage temperatureStorage;
+	WeatherIndicatorStorage pressureStorage;
+	WeatherIndicatorStorage humidityStorage;
+	CStatsDisplay statsDisplay(temperatureStorage, pressureStorage, humidityStorage);
 	wd.RegisterObserver(statsDisplay);
 
 	wd.SetMeasurements(3, 0.7, 760);

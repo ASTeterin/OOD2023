@@ -10,6 +10,7 @@ public:
 		, m_priorities(&priorities)
 	{
 	}
+
 private:
 	void Update(SWeatherInfo const& data) override
 	{
