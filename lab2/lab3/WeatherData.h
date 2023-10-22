@@ -15,7 +15,7 @@ struct SWeatherInfo
 struct WeatherIndicatorInfo
 {
 	double maxValue = -std::numeric_limits<double>::infinity();
-	double minValue = std::numeric_limits<double>::infinity();;
+	double minValue = std::numeric_limits<double>::infinity();
 	double accumulatedValue = 0;
 	double measurementsNumber = 0;
 };

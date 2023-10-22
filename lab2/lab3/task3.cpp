@@ -30,8 +30,9 @@ SCENARIO("test priority")
 	CMockDisplay display2("test2", priorities);
 	CMockDisplay display3("test3", priorities);
 	wd.RegisterObserver(display1, 1);
-	wd.RegisterObserver(display2, 2);
 	wd.RegisterObserver(display3, 10);
+	wd.RegisterObserver(display2, 2);
+	
 
 	wd.SetMeasurements(20, 0.7, 760);
 
