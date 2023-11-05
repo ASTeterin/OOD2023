@@ -94,7 +94,7 @@ enum class TeaType
 	BLACK_TEA,
 	GREEN_TEA,
 	ULUN,
-	PUER_TEA,
+	PUER,
 };
 
 // Чай
@@ -120,7 +120,7 @@ public:
 			description = "Green tea";
 		case TeaType::ULUN:
 			description = "Ulun";
-		case TeaType::PUER_TEA:
+		case TeaType::PUER:
 			description = "Puer";
 		default:
 			throw std::invalid_argument("Invalid tee type.");
