@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CDesigner.cpp" />
+    <ClCompile Include="CPainter.cpp" />
     <ClCompile Include="CPictureDraft.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShapeFactory.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CDesigner.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CPainter.h" />
     <ClInclude Include="CPictureDraft.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
