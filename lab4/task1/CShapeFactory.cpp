@@ -2,20 +2,19 @@
 #include "CRectangle.h"
 #include <exception>
 #include <sstream>
+#include "CTriangle.h"
+#include "CEllipse.h"
 
-const std::string RECTANGLE_NAME = "rectangle";
-const std::string TRIANGLE_NAME = "triangle";
-const std::string ELLIPSE_NAME = "ellipse";
-const std::string POLYGON_NAME = "polygon";
+const std::string RECTANGLE = "rectangle";
+const std::string TRIANGLE = "triangle";
+const std::string ELLIPSE = "ellipse";
 
-
-
-const std::string GREEN_NAME = "green";
-const std::string YELLOW_NAME = "yellow";
-const std::string RED_NAME = "red";
-const std::string BLUE_NAME = "blue";
-const std::string PINK_NAME = "pink";
-const std::string BLACK_NAME = "black";
+const std::string GREEN = "green";
+const std::string YELLOW = "yellow";
+const std::string RED = "red";
+const std::string BLUE = "blue";
+const std::string PINK = "pink";
+const std::string BLACK = "black";
 
 std::unique_ptr<CShape> CShapeFactory::CreateShape(std::string const& description)
 {
@@ -26,24 +25,28 @@ std::unique_ptr<CShape> CShapeFactory::CreateShape(std::string const& descriptio
 	descStream >> colorStr;
 	auto color = GetColorByName(colorStr);
 
-	if (shapeName == RECTANGLE_NAME)
+	if (shapeName == RECTANGLE)
 		return CreateRectangle(descStream, color);
+	if (shapeName == TRIANGLE)
+		return CreateTriangle(descStream, color);
+	if (shapeName == ELLIPSE)
+		return CreateEllipse(descStream, color);
 	throw std::invalid_argument("Invalid shape name");
 }
 
 Color CShapeFactory::GetColorByName(std::string const& color) const
 {
-	if (color == GREEN_NAME)
+	if (color == GREEN)
 		return Color::GREEN;
-	if (color == YELLOW_NAME)
+	if (color == YELLOW)
 		return Color::YELLOW;
-	if (color == BLACK_NAME)
+	if (color == BLACK)
 		return Color::BLACK;
-	if (color == BLUE_NAME)
+	if (color == BLUE)
 		return Color::BLUE;
-	if (color == RED_NAME)
+	if (color == RED)
 		return Color::RED;
-	if (color == PINK_NAME)
+	if (color == PINK)
 		return Color::PINK;
 	throw std::invalid_argument("Invalid color name");
 }
@@ -56,4 +59,24 @@ std::unique_ptr<CShape> CShapeFactory::CreateRectangle(std::istream& strm, Color
 	Point rightBottom = { rightBottomX, rightBottomY };
 
 	return std::make_unique<CRectangle>(color, leftTop, rightBottom);
+}
+
+std::unique_ptr<CShape> CShapeFactory::CreateTriangle(std::istream& strm, Color color) const
+{
+	double firstX = -1, firstY = -1, secondX = -1, secondY = -1, thirdX = -1, thirdY = -1;
+	strm >> firstX >> firstY >> secondX >> secondY >> thirdX >> thirdY;
+	Point firstVert = { firstX, firstY };
+	Point secondVert = { secondX, secondY };
+	Point thirdVert = { thirdX, thirdY };
+
+	return std::make_unique<CTriangle>(color, firstVert, secondVert, thirdVert);
+}
+
+std::unique_ptr<CShape> CShapeFactory::CreateEllipse(std::istream& strm, Color color) const
+{
+	double centerX = -1, centerY = -1, horizontalRadius = -1, verticalRadius = -1;
+	strm >> centerX >> centerY >> horizontalRadius >> verticalRadius;
+	Point center = { centerX, centerY };
+
+	return std::make_unique<CEllipse>(color, center, horizontalRadius, verticalRadius);
 }

@@ -129,22 +129,26 @@
   <ItemGroup>
     <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CDesigner.cpp" />
+    <ClCompile Include="CEllipse.cpp" />
     <ClCompile Include="CPainter.cpp" />
     <ClCompile Include="CPictureDraft.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShapeFactory.cpp" />
     <ClCompile Include="CShapeFactory.h" />
+    <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="IShapeFactory.h" />
     <ClCompile Include="task1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CDesigner.h" />
+    <ClInclude Include="CEllipse.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="CPainter.h" />
     <ClInclude Include="CPictureDraft.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
+    <ClInclude Include="CTriangle.h" />
     <ClInclude Include="ICanvas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
