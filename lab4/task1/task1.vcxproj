@@ -133,6 +133,7 @@
     <ClCompile Include="CPainter.cpp" />
     <ClCompile Include="CPictureDraft.cpp" />
     <ClCompile Include="CRectangle.cpp" />
+    <ClCompile Include="CRegularPolygon.cpp" />
     <ClCompile Include="CShapeFactory.cpp" />
     <ClCompile Include="CShapeFactory.h" />
     <ClCompile Include="CTriangle.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="CPainter.h" />
     <ClInclude Include="CPictureDraft.h" />
+    <ClInclude Include="CPolygon.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
     <ClInclude Include="CTriangle.h" />

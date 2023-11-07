@@ -13,7 +13,7 @@ void CCanvas::DrawLine(Point from, Point to)
 		<< "<line "
 		<< "x1 = '" << from.x << "' y1 = '" << from.y
 		<< "' x2 = '" << to.x << "' y2 = '" << to.y << "' "
-		<< "stroke = '" << GetColorName(m_color) << "' stroke-width = '5'/>"
+		<< "stroke = '" << GetColorName(m_color) << "' stroke-width = '1'/>"
 		<< std::endl;
 }
 
@@ -23,7 +23,7 @@ void CCanvas::DrawElipse(Point center, double w, double h)
 		<< "<ellipse "
 		<< "rx='" << w << "' ry='" << h << "' "
 		<< "cx='" << center.x << "' cy='" << center.y << "' "
-		<< "stroke='" << GetColorName(m_color) << "' stroke-width='5' "
+		<< "stroke='" << GetColorName(m_color) << "' stroke-width='1' "
 		<< "fill='transparent' />"
 		<< std::endl;
 }

@@ -23,7 +23,7 @@ std::unique_ptr<CShape> CShapeFactory::CreateShape(std::string const& descriptio
 	std::string colorStr;
 	descStream >> shapeName;
 	descStream >> colorStr;
-	auto color = GetColorByName(colorStr);
+	auto color = GetColor(colorStr);
 
 	if (shapeName == RECTANGLE)
 		return CreateRectangle(descStream, color);
@@ -34,7 +34,7 @@ std::unique_ptr<CShape> CShapeFactory::CreateShape(std::string const& descriptio
 	throw std::invalid_argument("Invalid shape name");
 }
 
-Color CShapeFactory::GetColorByName(std::string const& color) const
+Color CShapeFactory::GetColor(std::string const& color) const
 {
 	if (color == GREEN)
 		return Color::GREEN;
@@ -53,7 +53,7 @@ Color CShapeFactory::GetColorByName(std::string const& color) const
 
 std::unique_ptr<CShape> CShapeFactory::CreateRectangle(std::istream& strm, Color color) const
 {
-	double leftTopX = -1, leftTopY = -1, rightBottomX = -1, rightBottomY = -1;
+	double leftTopX = 0, leftTopY = 0, rightBottomX = 0, rightBottomY = 0;
 	strm >> leftTopX >> leftTopY >> rightBottomX >> rightBottomY;
 	Point leftTop = { leftTopX, leftTopY };
 	Point rightBottom = { rightBottomX, rightBottomY };
@@ -63,18 +63,18 @@ std::unique_ptr<CShape> CShapeFactory::CreateRectangle(std::istream& strm, Color
 
 std::unique_ptr<CShape> CShapeFactory::CreateTriangle(std::istream& strm, Color color) const
 {
-	double firstX = -1, firstY = -1, secondX = -1, secondY = -1, thirdX = -1, thirdY = -1;
-	strm >> firstX >> firstY >> secondX >> secondY >> thirdX >> thirdY;
-	Point firstVert = { firstX, firstY };
-	Point secondVert = { secondX, secondY };
-	Point thirdVert = { thirdX, thirdY };
+	double vertex1X = 0, vertex1Y = 0, vertex2X = 0, vertex2Y = 0, vertex3X = 0, vertex3Y = 0;
+	strm >> vertex1X >> vertex1Y >> vertex2X >> vertex2Y >> vertex3X >> vertex3Y;
+	Point firstVert = { vertex1X, vertex1Y };
+	Point secondVert = { vertex2X, vertex2Y };
+	Point thirdVert = { vertex3X, vertex3Y };
 
 	return std::make_unique<CTriangle>(color, firstVert, secondVert, thirdVert);
 }
 
 std::unique_ptr<CShape> CShapeFactory::CreateEllipse(std::istream& strm, Color color) const
 {
-	double centerX = -1, centerY = -1, horizontalRadius = -1, verticalRadius = -1;
+	double centerX = 0, centerY = 0, horizontalRadius = 0, verticalRadius = 0;
 	strm >> centerX >> centerY >> horizontalRadius >> verticalRadius;
 	Point center = { centerX, centerY };
 

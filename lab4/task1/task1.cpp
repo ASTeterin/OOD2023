@@ -8,7 +8,7 @@
 
 int main()
 {
-	std::ofstream result("result.svg");
+	std::ofstream result("picture.svg");
 	IShapeFactoryPtr shapeFactory = std::make_unique<CShapeFactory>();
 
 	CDesigner designer(std::move(shapeFactory));
