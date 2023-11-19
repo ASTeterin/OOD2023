@@ -1,0 +1,52 @@
+#pragma once
+#include <memory>
+#include <string>
+#include "IParagraph.h"
+#include "IImage.h"
+#include "ConstDocumentItem.h"
+#include "DocumentItem.h"
+
+using namespace std;
+
+class IDocument
+{
+public:
+
+	 shared_ptr<IParagraph> InsertParagraph(const string& text, optional<unsigned> position);
+
+	//// Вставляет изображение в указанную позицию (сдвигая последующие элементы)
+	//// Параметр path задает путь к вставляемому изображению
+	//// При вставке изображение должно копироваться в подкаталог images 
+	//// под автоматически сгенерированным именем
+	//virtual std::shared_ptr<IImage> InsertImage(const std::string& path, int width, int height,
+	//	const boost::optional<size_t>& position = boost::none) = 0;
+
+	virtual size_t GetItemsCount()const = 0;
+
+	//// Доступ к элементам изображения
+	//virtual CConstDocumentItem GetItem(size_t index)const = 0;
+	//virtual CDocumentItem GetItem(size_t index) = 0;
+
+	virtual void DeleteItem(size_t index) = 0;
+
+	// Возвращает заголовок документа
+	virtual std::string GetTitle()const = 0;
+	// Изменяет заголовок документа
+	virtual void SetTitle(const std::string & title) = 0;
+
+	// Сообщает о доступности операции Undo
+	virtual bool CanUndo()const = 0;
+	// Отменяет команду редактирования
+	virtual void Undo() = 0;
+
+	// Сообщает о доступности операции Redo
+	virtual bool CanRedo()const = 0;
+	// Выполняет отмененную команду редактирования
+	virtual void Redo() = 0;
+
+	//// Сохраняет документ в формате html. Изображения сохраняются в подкаталог images.
+	//// Пути к изображениям указываются относительно пути к сохраняемому HTML файлу
+	//virtual void Save(const std::string& path)const = 0;
+
+	virtual ~IDocument() = default;
+};
