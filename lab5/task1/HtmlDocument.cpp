@@ -85,6 +85,38 @@ void CHtmlDocument::SetTitle(const string& title)
     m_title = title;
 }
 
+void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
+{
+	if (position >= GetItemsCount())
+	{
+		throw std::invalid_argument("Invalid pos");
+	}
+
+	auto item = GetItem(position);
+	if (item.GetParagraph() == nullptr)
+	{
+		throw std::invalid_argument("Invalid item type");
+	}
+
+	item.GetParagraph()->SetText(text);
+}
+
+void CHtmlDocument::ResizeImage(int width, int height, size_t position)
+{
+	if (position >= GetItemsCount())
+	{
+		throw std::invalid_argument("Invalid pos");
+	}
+
+	auto item = GetItem(position);
+	if (item.GetImage() == nullptr)
+	{
+		throw std::invalid_argument("Invalid item type");
+	}
+
+	item.GetImage()->Resize(width, height);
+}
+
 void CHtmlDocument::AssertPositionValid(size_t position) const
 {
     if (position > m_items.size() - 1)

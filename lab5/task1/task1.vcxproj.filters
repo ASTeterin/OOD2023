@@ -54,6 +54,9 @@
     <ClCompile Include="DeleteItemCommand.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ReplaceTextCommand.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractCommand.h">
@@ -83,7 +86,7 @@
     <ClInclude Include="CParagraph.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CReplaceTextCommand.h">
+    <ClInclude Include="ReplaceTextCommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="CResizeImageCommand.h">
@@ -92,7 +95,7 @@
     <ClInclude Include="CSetTiltleCommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DeleteItemCommand.h">
+    <ClInclude Include="CDeleteItemCommand.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="History.h">

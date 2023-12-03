@@ -1,49 +1,19 @@
-#pragma once
-#include "CDocumentItem.h"
-#include "AbstractCommand.h"
-#include "IDocument.h"
-#include <vector>
+#include "CDeleteItemCommand.h"
+#include <utility>
 
-class CDeleteItemCommand : public CAbstractCommand
+CDeleteItemCommand::CDeleteItemCommand(std::vector<CDocumentItem>& items, size_t index)
+	: m_items(items)
+	, m_index(index)
 {
-public:
-	CDeleteItemCommand(IDocument& document, size_t position)
-		: m_document(document)
-		, m_position(position)
-		, m_item(document.GetItem(position))
-	{
-	}
+	m_item = std::make_shared<CDocumentItem>(m_items.at(index));
+}
 
-	~CDeleteItemCommand()
-	{
-		auto image = m_item.GetImage();
-		if (image != nullptr)
-			filesystem::remove(image->GetPath());
-	}
+void CDeleteItemCommand::DoExecute()
+{
+	m_items.erase(m_items.begin() + m_index);
+}
 
-protected:
-	void DoExecute() override
-	{
-		m_document.DeleteItem(m_position);
-	}
-
-	void DoUnexecute() override
-	{
-		auto image = m_item.GetImage();
-		auto paragraph = m_item.GetParagraph();
-		if (image != nullptr)
-			m_document.InsertImage(image->GetPath(), image->GetWidth(), image->GetHeight(), m_position);
-		if (paragraph != nullptr)
-			m_document.InsertParagraph(paragraph->GetText(), m_position);
-	}
-
-	void Destroy() override
-	{
-
-	}
-
-private:
-	IDocument& m_document;
-	size_t m_position;
-	CDocumentItem m_item;
-};
+void CDeleteItemCommand::DoUnexecute()
+{
+	m_items.emplace(m_items.begin() + m_index, *m_item);
+}

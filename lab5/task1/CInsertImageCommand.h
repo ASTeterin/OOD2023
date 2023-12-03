@@ -14,7 +14,7 @@ public:
 	{}
 	~CInsertImageCommand()
 	{
-		Destroy();
+		filesystem::remove(m_image->GetPath());
 	}
 
 protected:
@@ -29,11 +29,6 @@ protected:
 		auto position = m_position == nullopt ? m_document.GetItemsCount() - 1 : *m_position;
 		m_image = m_document.GetItem(position).GetImage();
 		m_document.DeleteItem(position);
-	}
-	
-	void Destroy() override
-	{	
-		filesystem::remove(m_image->GetPath());
 	}
 
 private:

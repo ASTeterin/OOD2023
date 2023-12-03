@@ -45,6 +45,9 @@ public:
 	// Изменяет заголовок документа
 	virtual void SetTitle(const string& title) = 0;
 
+	virtual void ReplaceText(const std::string& text, size_t position) = 0;
+	virtual void ResizeImage(int width, int height, size_t position) = 0;
+
 	// Сообщает о доступности операции Undo
 	virtual bool CanUndo()const = 0;
 	// Отменяет команду редактирования

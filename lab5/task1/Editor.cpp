@@ -17,6 +17,8 @@ CEditor::CEditor(std::istream& inStream, std::ostream& outStream)
 	m_menu.AddItem("insertParagraph", "Inserting paragraph. Args: <position>|end <text>", std::bind(&CEditor::InsertParagraph, this, _1));
 	m_menu.AddItem("insertImage", "Inserting image. Args: <position>|end <width> <height> <path>", std::bind(&CEditor::InsertImage, this, _1));
 	m_menu.AddItem("setTitle", "Changes title. Args: <new title>", std::bind(&CEditor::SetTitle, this, _1));
+	m_menu.AddItem("replaceText", "Replace paragraph text. Args: <position> <text>", std::bind(&CEditor::ReplaceText, this, _1));
+	m_menu.AddItem("resizeImage", "Resize image. Args: <position> <width> <height>", std::bind(&CEditor::ResizeImage, this, _1));
 	m_menu.AddItem("list", "Show document", std::bind(&CEditor::List, this, _1));
 	m_menu.AddItem("deleteItem", "Delete item. Args: <position>", std::bind(&CEditor::DeleteItem, this, _1));
 	m_menu.AddItem("undo", "Undo command", std::bind(&CEditor::Undo, this, _1));
@@ -91,6 +93,49 @@ void CEditor::SetTitle(std::istream& input)
 	title.erase(title.begin());
 
 	m_document->SetTitle(title);
+}
+
+void CEditor::ReplaceText(std::istream& in)
+{
+	size_t position;
+	std::string text;
+
+	if (!(in >> position) || !getline(in, text))
+	{
+		m_outStream << "invalid arguments" << std::endl;
+		return;
+	}
+
+	try
+	{
+		m_document->ReplaceText(text, position);
+	}
+	catch (const std::exception& e)
+	{
+		m_outStream << e.what() << std::endl;
+	}
+}
+
+void CEditor::ResizeImage(std::istream& in)
+{
+	size_t position;
+	int width;
+	int height;
+
+	if (!((in >> position) && (in >> width) && (in >> height)))
+	{
+		m_outStream << "invalid arguments" << std::endl;
+		return;
+	}
+
+	try
+	{
+		m_document->ResizeImage(position, width, height);
+	}
+	catch (const std::exception& e)
+	{
+		m_outStream << e.what() << std::endl;
+	}
 }
 
 void CEditor::List(std::istream&)
