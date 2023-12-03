@@ -1,7 +1,6 @@
-#include "stdafx.h"
 #include "AbstractCommand.h"
 
-void CAbstractCommand::Execute() 
+void CAbstractCommand::Execute()
 {
 	if (!m_executed)
 	{
@@ -10,7 +9,7 @@ void CAbstractCommand::Execute()
 	}
 }
 
-void CAbstractCommand::Unexecute() 
+void CAbstractCommand::Unexecute()
 {
 	if (m_executed)
 	{

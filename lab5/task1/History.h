@@ -1,20 +1,17 @@
 #pragma once
-
-#include "ICommand_fwd.h"
+#include "ICommand.h"
+#include <deque>
+#include <memory>
 
 class CHistory
 {
 public:
-	CHistory();
-	~CHistory();
-
-	bool CanUndo()const;	
+	bool CanUndo()const;
 	void Undo();
 	bool CanRedo()const;
 	void Redo();
-	void AddAndExecuteCommand(ICommandPtr && command);
+	void AddAndExecuteCommand(std::unique_ptr<ICommand>&& command);
 private:
-	std::deque<ICommandPtr> m_commands;
+	std::deque<std::unique_ptr<ICommand>> m_commands;
 	size_t m_nextCommandIndex = 0;
 };
-

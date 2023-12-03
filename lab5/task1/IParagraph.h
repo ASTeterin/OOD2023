@@ -1,10 +1,14 @@
 #pragma once
 #include <string>
 
+using namespace std;
+
+/* Параграф текста*/
 class IParagraph
 {
 public:
-	virtual std::string GetText() const = 0;
-	virtual void SetText(const std::string& text) = 0;
+	virtual string GetText()const = 0;
+	virtual void SetText(const string& text) = 0;
 	virtual ~IParagraph() = default;
 };
+

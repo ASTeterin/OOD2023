@@ -1,5 +1,8 @@
 #pragma once
-
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <functional>
 
 class CMenu
 {
@@ -7,23 +10,20 @@ public:
 	CMenu(std::istream& in, std::ostream& out)
 		: m_in(in)
 		, m_out(out)
-	{
-	}
-	typedef std::function<void(std::istream &args)> Command;
-	void AddItem(const std::string & shortcut, const std::string & description, const Command & command);
+	{}
+	typedef std::function<void(std::istream& args)> Command;
 
+	void AddItem(const std::string& shortcut, const std::string& description, const Command& command);
 	void Run();
-
 	void ShowInstructions()const;
-
 	void Exit();
 
 private:
-	bool ExecuteCommand(const std::string & command);
+	bool ExecuteCommand(const std::string& command);
 
 	struct Item
 	{
-		Item(const std::string & shortcut, const std::string & description, const Command & command)
+		Item(const std::string& shortcut, const std::string& description, const Command& command)
 			: shortcut(shortcut)
 			, description(description)
 			, command(command)
