@@ -5,6 +5,8 @@
 
 using namespace std::placeholders;
 
+const string END_POSITION = "end";
+
 CEditor::CEditor(std::istream& inStream, std::ostream& outStream)
 	: m_menu(inStream, outStream)
 	, m_document(std::make_unique<CHtmlDocument>())
@@ -42,7 +44,7 @@ void CEditor::InsertParagraph(std::istream& in)
 	std::optional<size_t> position = std::nullopt;
 	try
 	{
-		if (positionStr != "end")
+		if (positionStr != END_POSITION)
 		{
 			position = std::stoi(positionStr);
 		}
@@ -54,14 +56,14 @@ void CEditor::InsertParagraph(std::istream& in)
 	}
 }
 
-void CEditor::InsertImage(std::istream& in)
+void CEditor::InsertImage(std::istream& input)
 {
 	std::string positionStr;
 	int width = 0;
 	int height = 0;
 	std::string path;
 
-	if (!((in >> positionStr) && (in >> width) && (in >> height) && (in >> path)))
+	if (!((input >> positionStr) && (input >> width) && (input >> height) && (input >> path)))
 	{
 		m_outStream << "invalid arguments" << std::endl;
 		return;
@@ -70,7 +72,7 @@ void CEditor::InsertImage(std::istream& in)
 	std::optional<size_t> position = std::nullopt;
 	try
 	{
-		if (positionStr != "end")
+		if (positionStr != END_POSITION)
 		{
 			position = stoi(positionStr);
 		}
@@ -82,10 +84,10 @@ void CEditor::InsertImage(std::istream& in)
 	}
 }
 
-void CEditor::SetTitle(std::istream& in)
+void CEditor::SetTitle(std::istream& input)
 {
 	std::string title;
-	std::getline(in, title);
+	std::getline(input, title);
 	title.erase(title.begin());
 
 	m_document->SetTitle(title);
@@ -111,11 +113,11 @@ void CEditor::List(std::istream&)
 }
 
 
-void CEditor::DeleteItem(std::istream& in)
+void CEditor::DeleteItem(std::istream& input)
 {
 	size_t position;
 
-	if (!(in >> position))
+	if (!(input >> position))
 	{
 		m_outStream << "invalid arguments" << std::endl;
 		return;

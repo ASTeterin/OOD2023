@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include <filesystem>
-#include "HtmlEncoder.h"
 
 const Path IMAGE_FOLDER = "images";
 const Path IMAGE_NAME_PATTERN = "image";
@@ -31,14 +30,14 @@ shared_ptr<IImage> CHtmlDocument::InsertImage(const Path& path, int width, int h
     Path newImagePath = IMAGE_FOLDER / imageName;
     newImagePath.replace_extension(path.extension());
     filesystem::create_directory(IMAGE_FOLDER);
-    try
-    {
-        filesystem::copy(path.u8string(), newImagePath.u8string(), filesystem::copy_options::overwrite_existing);
-    }
-    catch (exception)
-    {
-        throw invalid_argument("File does not exists: " + m_path.string());
-    }
+	try
+	{
+		filesystem::copy(path.u8string(), newImagePath.u8string(), filesystem::copy_options::overwrite_existing);
+	}
+	catch (exception)
+	{
+		throw invalid_argument("File does not exists: " + m_path.string());
+	}
     shared_ptr<IImage> image = make_shared<CImage>(newImagePath, width, height);
     CDocumentItem itemHolder(image, nullptr);
     if (position == nullopt)
@@ -120,11 +119,6 @@ void CHtmlDocument::HandleCommand(unique_ptr<ICommand>&& command)
 void CHtmlDocument::Save(const Path& path) const
 {
     ofstream output(path);
-	Path directory = path.parent_path() / IMAGE_FOLDER;
-	if (!std::filesystem::is_directory(directory))
-	{
-		std::filesystem::create_directory(directory);
-	}
     output << "<html>" << endl;
 	output << "<h1>" << ReplaceCharacters(GetTitle()) << "</h1>" << endl;
     for (size_t i = 0; i < GetItemsCount(); i++)
@@ -140,16 +134,7 @@ void CHtmlDocument::Save(const Path& path) const
 			int height = image->GetHeight();
 
 			output << "<img src=\"" + src.string() + "\" width=\"" + std::to_string(width) + "\" height=\"" + std::to_string(height) + "\" />" << std::endl;
-
-			if (!std::filesystem::exists(directory / src.filename()))
-			{
-				std::filesystem::copy_file(src, directory / src.filename());
-			}
 		}
-		
-           /* output << "<img src=\"" << HtmlEncode(image->GetPath().string()) << "\" width=" << image->GetWidth() \
-                   << "\" height=\"" << image->GetHeight() << "\" src=\"img\"/>"<< endl;
-                   */
     }
     output << "</html>";
 }
