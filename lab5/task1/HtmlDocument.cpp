@@ -4,6 +4,7 @@
 #include "CDeleteItemCommand.h"
 #include "CInsertDocumentItemCommand.h"
 #include "ChangeStringCommand.h"
+#include "SetTitleCommand.h"
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -48,7 +49,6 @@ void CHtmlDocument::DeleteItem(size_t index)
 {
     AssertPositionValid(index);
 	m_history.AddAndExecuteCommand(std::make_unique<CDeleteItemCommand>(m_items, index));
-    m_items.erase(m_items.begin() + index);
 }
 
 string CHtmlDocument::GetTitle() const
@@ -58,14 +58,14 @@ string CHtmlDocument::GetTitle() const
 
 void CHtmlDocument::SetTitle(const string& title)
 {
-	m_title = title;
+	m_history.AddAndExecuteCommand(std::make_unique<CSetTitleCommand>(m_title, title));
 }
 
 void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
 {
 	if (position >= GetItemsCount())
 	{
-		throw std::invalid_argument("Invalid pos");
+		throw std::invalid_argument("Invalid position");
 	}
 
 	auto item = GetItem(position);
@@ -82,7 +82,7 @@ void CHtmlDocument::ResizeImage(int width, int height, size_t position)
 {
 	if (position >= GetItemsCount())
 	{
-		throw std::invalid_argument("Invalid pos");
+		throw std::invalid_argument("Invalid position");
 	}
 
 	auto item = GetItem(position);
@@ -97,7 +97,7 @@ void CHtmlDocument::ResizeImage(int width, int height, size_t position)
 void CHtmlDocument::AssertPositionValid(size_t position) const
 {
     if (position > m_items.size() - 1)
-        throw invalid_argument("Position is out of bounce");
+        throw invalid_argument("Position is out of range");
 }
 
 bool CHtmlDocument::CanUndo() const

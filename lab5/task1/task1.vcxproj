@@ -158,7 +158,6 @@
     <ClInclude Include="CParagraph.h" />
     <ClInclude Include="ChangeStringCommand.h" />
     <ClInclude Include="CResizeImageCommand.h" />
-    <ClInclude Include="CSetTiltleCommand.h" />
     <ClInclude Include="CDeleteItemCommand.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="ICommand.h" />
