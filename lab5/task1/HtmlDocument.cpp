@@ -1,53 +1,28 @@
 #include "HtmlDocument.h"
 #include "CParagraph.h"
 #include "CImage.h"
+#include "CDeleteItemCommand.h"
+#include "CInsertDocumentItemCommand.h"
+#include "ChangeStringCommand.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <filesystem>
 
-const Path IMAGE_FOLDER = "images";
-const Path IMAGE_NAME_PATTERN = "image";
-
 shared_ptr<IParagraph> CHtmlDocument::InsertParagraph(const string& text, optional<size_t> position)
 {
-    shared_ptr<IParagraph> paragraph = make_shared<CParagraph>(text);
-    CDocumentItem itemHolder(nullptr, paragraph);
-    if (position == nullopt)
-        m_items.push_back(itemHolder);
-    else
-    {
-        AssertPositionValid(*position);
-        auto it = m_items.begin() + *position;
-        m_items.insert(it, itemHolder);
-    }
-    return paragraph;
+	auto paragraph = std::make_shared<CParagraph>(text, m_history);
+	auto item = CDocumentItem(paragraph);
+	m_history.AddAndExecuteCommand(make_unique<CInsertDocumentItemCommand>(m_items, item, position));
+
+	return paragraph;
 }
 
 shared_ptr<IImage> CHtmlDocument::InsertImage(const Path& path, int width, int height, optional<size_t> position)
 {
-    Path imageName(IMAGE_NAME_PATTERN.string() + to_string(m_imageCounter++));
-    Path newImagePath = IMAGE_FOLDER / imageName;
-    newImagePath.replace_extension(path.extension());
-    filesystem::create_directory(IMAGE_FOLDER);
-	try
-	{
-		filesystem::copy(path.u8string(), newImagePath.u8string(), filesystem::copy_options::overwrite_existing);
-	}
-	catch (exception)
-	{
-		throw invalid_argument("File does not exists: " + m_path.string());
-	}
-    shared_ptr<IImage> image = make_shared<CImage>(newImagePath, width, height);
-    CDocumentItem itemHolder(image, nullptr);
-    if (position == nullopt)
-        m_items.push_back(itemHolder);
-    else
-    {
-        AssertPositionValid(*position);
-        auto it = m_items.begin() + *position;
-        m_items.insert(it, itemHolder);
-    }
+	shared_ptr<IImage> image = std::make_shared<CImage>(path, width, height, m_history, m_imageCounter++);
+	auto item = CDocumentItem(image);
+	m_history.AddAndExecuteCommand(make_unique<CInsertDocumentItemCommand>(m_items, item, position));
 
     return image;
 }
@@ -72,6 +47,7 @@ CDocumentItem CHtmlDocument::GetItem(size_t index)
 void CHtmlDocument::DeleteItem(size_t index)
 {
     AssertPositionValid(index);
+	m_history.AddAndExecuteCommand(std::make_unique<CDeleteItemCommand>(m_items, index));
     m_items.erase(m_items.begin() + index);
 }
 
@@ -82,7 +58,7 @@ string CHtmlDocument::GetTitle() const
 
 void CHtmlDocument::SetTitle(const string& title)
 {
-    m_title = title;
+	m_title = title;
 }
 
 void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
@@ -93,12 +69,13 @@ void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
 	}
 
 	auto item = GetItem(position);
-	if (item.GetParagraph() == nullptr)
+	auto paragraph = item.GetParagraph();
+	if (paragraph == nullptr)
 	{
 		throw std::invalid_argument("Invalid item type");
 	}
 
-	item.GetParagraph()->SetText(text);
+	paragraph->SetText(text);
 }
 
 void CHtmlDocument::ResizeImage(int width, int height, size_t position)
@@ -141,11 +118,6 @@ bool CHtmlDocument::CanRedo() const
 void CHtmlDocument::Redo()
 {
     m_history.Redo();
-}
-
-void CHtmlDocument::HandleCommand(unique_ptr<ICommand>&& command)
-{
-    m_history.AddAndExecuteCommand(move(command));
 }
 
 void CHtmlDocument::Save(const Path& path) const

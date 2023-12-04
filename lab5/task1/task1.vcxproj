@@ -130,6 +130,8 @@
   <ItemGroup>
     <ClCompile Include="CAbstractCommand.cpp" />
     <ClCompile Include="CDocumentItem.cpp" />
+    <ClCompile Include="CInsertDocumentItemCommand.cpp" />
+    <ClCompile Include="ConstDocumentItem.cpp" />
     <ClCompile Include="DeleteItemCommand.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="HtmlDocument.cpp" />
@@ -139,22 +141,22 @@
     <ClCompile Include="History.cpp" />
     <ClCompile Include="IImage.cpp" />
     <ClCompile Include="IParagraph.cpp" />
-    <ClCompile Include="ReplaceTextCommand.cpp" />
+    <ClCompile Include="ChangeStringCommand.cpp" />
     <ClCompile Include="SetTitleCommand.cpp" />
     <ClCompile Include="task1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractCommand.h" />
     <ClInclude Include="CDocumentItem.h" />
+    <ClInclude Include="CInsertDocumentItemCommand.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="HtmlDocument.h" />
     <ClInclude Include="CImage.h" />
     <ClInclude Include="CInsertImageCommand.h" />
-    <ClInclude Include="InsertParagraphCommand.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ConstDocumentItem.h" />
     <ClInclude Include="CParagraph.h" />
-    <ClInclude Include="ReplaceTextCommand.h" />
+    <ClInclude Include="ChangeStringCommand.h" />
     <ClInclude Include="CResizeImageCommand.h" />
     <ClInclude Include="CSetTiltleCommand.h" />
     <ClInclude Include="CDeleteItemCommand.h" />

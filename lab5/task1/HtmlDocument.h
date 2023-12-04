@@ -50,8 +50,6 @@ public:
 	// пути к изображениям указываются относительно пути к сохраняемому HTML файлу
 	void Save(const Path& path)const;
 
-	void HandleCommand(unique_ptr<ICommand>&& command);
-
 private:
 	void AssertPositionValid(size_t position) const;
 

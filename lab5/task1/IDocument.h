@@ -62,7 +62,5 @@ public:
 	// пути к изображениям указываются относительно пути к сохраняемому HTML файлу
 	virtual void Save(const Path& path)const = 0;
 
-	virtual void HandleCommand(unique_ptr<ICommand>&& command) = 0;
-
 	virtual ~IDocument() = default;
 };

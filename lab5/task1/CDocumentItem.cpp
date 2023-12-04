@@ -1,13 +1,12 @@
 #include "CDocumentItem.h"
 
-shared_ptr<const IImage> CConstDocumentItem::GetImage() const
+CDocumentItem::CDocumentItem(const std::shared_ptr<IParagraph>& paragraph)
+	: CConstDocumentItem(paragraph)
 {
-	return m_image;
 }
-
-shared_ptr<const IParagraph> CConstDocumentItem::GetParagraph() const
+CDocumentItem::CDocumentItem(const std::shared_ptr<IImage>& image)
+	: CConstDocumentItem(image)
 {
-	return m_paragraph;
 }
 
 shared_ptr<IImage> CDocumentItem::GetImage()

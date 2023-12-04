@@ -2,9 +2,6 @@
 #include <memory>
 #include <filesystem>
 #include <optional>
-#include "HtmlDocument.h"
-#include "InsertParagraphCommand.h"
-#include "Menu.h"
 #include "Editor.h"
 
 using namespace std;

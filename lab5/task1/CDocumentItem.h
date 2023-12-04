@@ -13,9 +13,8 @@ using namespace std;
 class CDocumentItem : public CConstDocumentItem
 {
 public:
-	CDocumentItem(shared_ptr<IImage> image, shared_ptr<IParagraph> paragraph)
-		: CConstDocumentItem(image, paragraph)
-	{}
+	CDocumentItem(const std::shared_ptr<IParagraph>& paragraph);
+	CDocumentItem(const std::shared_ptr<IImage>& image);
 	// Возвращает указатель на изображение, либо nullptr, если элемент не является изображением
 	shared_ptr<IImage> GetImage();
 	// Возвращает указатель на параграф, либо nullptr, если элемент не является параграфом

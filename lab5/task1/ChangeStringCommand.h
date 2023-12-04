@@ -1,11 +1,11 @@
 #pragma once
 #include "AbstractCommand.h"
-#include <iostream>
+#include <string>
 
-class CReplaceTextCommand : public CAbstractCommand
+class CChangeStringCommand : public CAbstractCommand
 {
 public:
-	CReplaceTextCommand(std::string& target, std::string newValue);
+	CChangeStringCommand(std::string& target, std::string newValue);
 
 protected:
 	void DoExecute() override;
