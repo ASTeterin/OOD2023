@@ -34,7 +34,7 @@ public:
 	void SetTitle(const string& title);
 
 	void ReplaceText(const std::string& text, size_t position);
-	void ResizeImage(int width, int height, size_t position);
+	void ResizeImage(size_t position, int width, int height);
 
 	// Сообщает о доступности операции Undo
 	bool CanUndo()const;

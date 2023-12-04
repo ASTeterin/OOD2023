@@ -132,6 +132,7 @@
     <ClCompile Include="CDocumentItem.cpp" />
     <ClCompile Include="CInsertDocumentItemCommand.cpp" />
     <ClCompile Include="ConstDocumentItem.cpp" />
+    <ClCompile Include="CResizeImageCommand.cpp" />
     <ClCompile Include="DeleteItemCommand.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="HtmlDocument.cpp" />

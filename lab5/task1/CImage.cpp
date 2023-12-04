@@ -1,8 +1,10 @@
 #include "CImage.h"
 #include "CResizeImageCommand.h"
-
 #include <filesystem>
 #include <string>
+#include <iostream>
+#include <memory>
+#include <optional>
 
 const Path IMAGE_FOLDER = "images";
 const Path IMAGE_NAME_PATTERN = "image";
@@ -12,18 +14,18 @@ CImage::CImage(const Path& path, int width, int height, CHistory& history, int i
 	, m_width(width)
 	, m_height(height)
 {
-	Path imageName(IMAGE_NAME_PATTERN.string() + to_string(imageCounter));
+	Path imageName(IMAGE_NAME_PATTERN.string() + std::to_string(imageCounter));
 	Path newImagePath = IMAGE_FOLDER / imageName;
 	newImagePath.replace_extension(path.extension());
 	m_fileName = newImagePath;
-	filesystem::create_directory(IMAGE_FOLDER);
+	std::filesystem::create_directory(IMAGE_FOLDER);
 	try
 	{
-		filesystem::copy(path.u8string(), newImagePath.u8string(), filesystem::copy_options::overwrite_existing);
+		std::filesystem::copy(path.u8string(), newImagePath.u8string(),std::filesystem::copy_options::overwrite_existing);
 	}
-	catch (exception)
+	catch (std::exception)
 	{
-		throw invalid_argument("File does not exists: " + path.string());
+		throw std::invalid_argument("File does not exists: " + path.string());
 	}
 }
 
@@ -31,7 +33,7 @@ CImage::~CImage()
 {
 	try
 	{
-		remove(filesystem::temp_directory_path() / "images" / m_fileName);
+		remove(m_fileName);
 	}
 	catch (...)
 	{
@@ -55,7 +57,5 @@ int CImage::GetHeight() const
 
 void CImage::Resize(int width, int height)
 {
-	/* m_history.AddAndExecuteCommand(
-		make_unique<CResizeImageCommand>(
-			m_width, m_height, width, height));*/
+	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(m_width, m_height, width, height));
 }

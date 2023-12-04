@@ -78,7 +78,7 @@ void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
 	paragraph->SetText(text);
 }
 
-void CHtmlDocument::ResizeImage(int width, int height, size_t position)
+void CHtmlDocument::ResizeImage(size_t position, int width, int height)
 {
 	if (position >= GetItemsCount())
 	{

@@ -1,44 +1,19 @@
 #pragma once
 #include "AbstractCommand.h"
-#include "IDocument.h"
+#include "IImage.h"
 
 class CResizeImageCommand : public CAbstractCommand
 {
 public:
-	CResizeImageCommand(IDocument& document, size_t position, int width, int height)
-		: m_document(document)
-		, m_position(position)
-		, m_newWidth(width)
-		, m_newHeight(height)
-	{
-	}
+	CResizeImageCommand(int& width, int& height, int newWidth, int newHeight);
 
 protected:
-
-	void DoExecute() override
-	{
-		auto item = m_document.GetItem(*m_position).GetImage();
-		if (item == nullptr)
-			throw invalid_argument("Position is out of bounce");
-		m_oldWidth = item->GetWidth();
-		m_oldHeight = item->GetHeight();
-		item->Resize(m_newWidth, m_newHeight);
-	}
-
-	void DoUnexecute() override
-	{
-		auto item = m_document.GetItem(*m_position).GetImage();
-		if (item == nullptr)
-			throw invalid_argument("Position is out of bounce");
-		item->Resize(m_oldWidth, m_oldHeight);
-	}
+	void DoExecute() override;
+	void DoUnexecute() override;
 
 private:
-	IDocument& m_document;
-	optional<size_t> m_position;
+	int& m_width;
+	int& m_height;
 	int m_newWidth;
 	int m_newHeight;
-	int m_oldWidth = 0;
-	int m_oldHeight = 0;
 };
-
