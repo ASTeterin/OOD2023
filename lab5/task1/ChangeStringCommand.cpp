@@ -1,7 +1,9 @@
 #include "ChangeStringCommand.h"
+#include "IParagraph.h"
+#include <memory>
 
-CChangeStringCommand::CChangeStringCommand(std::string& target, std::string newValue)
-	: m_target(target)
+CChangeStringCommand::CChangeStringCommand(std::shared_ptr<IParagraph> paragraph, std::string newValue)
+	: m_target(paragraph->GetText())
 	, m_newValue(std::move(newValue))
 {
 }

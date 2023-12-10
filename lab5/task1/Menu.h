@@ -33,6 +33,7 @@ private:
 		std::string description;
 		Command command;
 	};
+
 	std::vector<Item> m_items;
 	bool m_exit = false;
 	std::istream& m_in;

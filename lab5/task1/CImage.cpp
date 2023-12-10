@@ -28,7 +28,7 @@ CImage::CImage(const Path& path, int width, int height, CHistory& history, int i
 		throw std::invalid_argument("File does not exists: " + path.string());
 	}
 }
-
+// вынести создание и копирование картинки
 CImage::~CImage()
 {
 	try

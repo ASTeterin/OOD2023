@@ -5,7 +5,7 @@
 class CChangeStringCommand : public CAbstractCommand
 {
 public:
-	CChangeStringCommand(std::string& target, std::string newValue);
+	CChangeStringCommand(shared_ptr<IParagraph> paragraph, std::string newValue);
 
 protected:
 	void DoExecute() override;

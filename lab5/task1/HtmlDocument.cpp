@@ -74,8 +74,9 @@ void CHtmlDocument::ReplaceText(const std::string& text, size_t position)
 	{
 		throw std::invalid_argument("Invalid item type");
 	}
-
-	paragraph->SetText(text);
+	m_history.AddAndExecuteCommand(std::make_unique<CChangeStringCommand>(paragraph, text));
+	//переделать вызов команды из документа
+	//paragraph->SetText(text);
 }
 
 void CHtmlDocument::ResizeImage(size_t position, int width, int height)

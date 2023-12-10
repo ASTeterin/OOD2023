@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <memory>
 #include "IImage.h"
 #include "IParagraph.h"
 #include "ConstDocumentItem.h"
