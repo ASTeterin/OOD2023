@@ -9,7 +9,7 @@
 public:
 	CModernGraphicsLibAdapter(std::ostream& strm)
 		: CModernGraphicsRenderer(strm)
-		, m_start(0, 0)
+		, m_startPoint(0, 0)
 	{
 		BeginDraw();
 	}
@@ -19,15 +19,15 @@ public:
 	}
 	void MoveTo(int x, int y) override
 	{
-		m_start = modern_graphics_lib::CPoint(x, y);
+		m_startPoint = modern_graphics_lib::CPoint(x, y);
 	}
 	void LineTo(int x, int y) override
 	{
 		modern_graphics_lib::CPoint end(x, y);
-		DrawLine(m_start, end);
-		m_start = end;
+		DrawLine(m_startPoint, end);
+		m_startPoint = end;
 	}
 
 private:
-	modern_graphics_lib::CPoint m_start;
+	modern_graphics_lib::CPoint m_startPoint;
 };
