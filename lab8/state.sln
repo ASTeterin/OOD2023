@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumball_machine", "gumball_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GumBallMachine_test", "GumBallMachine_test\GumBallMachine_test.vcxproj", "{83CDBF06-060C-46CA-9435-37A71DA3AD78}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultyGumballMachine", "MultyGumballMachine\MultyGumballMachine.vcxproj", "{754684F3-3465-4364-B82E-71226865635F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiGumballMachineStateTest", "MultiGumballMachineStateTest\MultiGumballMachineStateTest.vcxproj", "{F2D00BA4-FE89-44B8-8BC8-26582E01C800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,8 +35,27 @@ Global
 		{83CDBF06-060C-46CA-9435-37A71DA3AD78}.Release|x64.Build.0 = Release|x64
 		{83CDBF06-060C-46CA-9435-37A71DA3AD78}.Release|x86.ActiveCfg = Release|Win32
 		{83CDBF06-060C-46CA-9435-37A71DA3AD78}.Release|x86.Build.0 = Release|Win32
+		{754684F3-3465-4364-B82E-71226865635F}.Debug|x64.ActiveCfg = Debug|x64
+		{754684F3-3465-4364-B82E-71226865635F}.Debug|x64.Build.0 = Debug|x64
+		{754684F3-3465-4364-B82E-71226865635F}.Debug|x86.ActiveCfg = Debug|Win32
+		{754684F3-3465-4364-B82E-71226865635F}.Debug|x86.Build.0 = Debug|Win32
+		{754684F3-3465-4364-B82E-71226865635F}.Release|x64.ActiveCfg = Release|x64
+		{754684F3-3465-4364-B82E-71226865635F}.Release|x64.Build.0 = Release|x64
+		{754684F3-3465-4364-B82E-71226865635F}.Release|x86.ActiveCfg = Release|Win32
+		{754684F3-3465-4364-B82E-71226865635F}.Release|x86.Build.0 = Release|Win32
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Debug|x64.ActiveCfg = Debug|x64
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Debug|x64.Build.0 = Debug|x64
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Debug|x86.ActiveCfg = Debug|Win32
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Debug|x86.Build.0 = Debug|Win32
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Release|x64.ActiveCfg = Release|x64
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Release|x64.Build.0 = Release|x64
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Release|x86.ActiveCfg = Release|Win32
+		{F2D00BA4-FE89-44B8-8BC8-26582E01C800}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49108BC1-1ADD-494E-8CE6-F1CF29908538}
 	EndGlobalSection
 EndGlobal
