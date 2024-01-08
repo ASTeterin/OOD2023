@@ -1,6 +1,7 @@
 #pragma once
 #include "IFillStyle.h"
 #include <functional>
+#include "IShape.h"
 
 class IOutlineStyleEnumerator
 {
