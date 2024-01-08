@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include <iostream>
 #include <string>
 
@@ -110,9 +109,9 @@ public:
 			   "C++-enabled Standing Gumball Model #2016\n"
 			   "Inventory: "
 			+ std::to_string(m_count) + " gumball" + (m_count != 1 ? "s" : "") + "\n"
-																				 "Bank: "
+			"Bank: "
 			+ std::to_string(m_quartersAmount) + " quarter" + (m_quartersAmount != 1 ? "s" : "") + "\n"
-																								   "Machine is "
+			"Machine is "
 			+ state + "\n";
 	}
 
@@ -147,7 +146,7 @@ private:
 		}
 	}
 
-	unsigned m_count;	// Количество шариков
+	unsigned m_count;
 	unsigned m_quartersAmount = 0;
 	State m_state = State::SoldOut;
 };

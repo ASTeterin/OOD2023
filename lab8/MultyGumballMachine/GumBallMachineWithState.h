@@ -123,7 +123,7 @@ public:
 
 	void InsertQuarter() override
 	{
-		if (m_gumballMachine.GetQuartersAmount() == 5)
+		if (m_gumballMachine.GetQuartersAmount() == MAX_QUARTERS)
 		{
 			std::cout << "You can't insert another quarter\n";
 			return;
