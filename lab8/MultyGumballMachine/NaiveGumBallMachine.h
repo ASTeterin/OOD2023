@@ -5,6 +5,7 @@
 
 namespace naive
 {
+const int MAX_QUARTERS = 5;
 class CGumballMachine
 {
 public:
@@ -35,7 +36,13 @@ public:
 			m_state = State::HasQuarter;
 			break;
 		case State::HasQuarter:
-			cout << "You can't insert another quarter\n";
+			if (m_quartersAmount == MAX_QUARTERS)
+			{
+				cout << "You can't insert another quarter\n";
+				break;
+			}
+			cout << "You inserted a quarter\n";
+			m_quartersAmount++;
 			break;
 		case State::Sold:
 			cout << "Please wait, we're already giving you a gumball\n";
@@ -50,6 +57,7 @@ public:
 		{
 		case State::HasQuarter:
 			cout << "Quarter returned\n";
+			m_quartersAmount = 0;
 			m_state = State::NoQuarter;
 			break;
 		case State::NoQuarter:
@@ -59,7 +67,13 @@ public:
 			cout << "Sorry you already turned the crank\n";
 			break;
 		case State::SoldOut:
-			cout << "You can't eject, you haven't inserted a quarter yet\n";
+			if (m_quartersAmount != 0)
+			{
+				cout << "Returning quarter";
+				m_quartersAmount--;
+			}
+			else
+				cout << "You can't eject, you haven't inserted a quarter yet\n";
 			break;
 		}
 	}
@@ -77,6 +91,7 @@ public:
 			break;
 		case State::HasQuarter:
 			cout << "You turned...\n";
+			m_quartersAmount--;
 			m_state = State::Sold;
 			Dispense();
 			break;
@@ -86,13 +101,7 @@ public:
 		}
 	}
 
-	void Refill(unsigned numBalls)
-	{
-		m_count = numBalls;
-		m_state = numBalls > 0 ? State::NoQuarter : State::SoldOut;
-	}
-
-		std::string ToString() const
+	std::string ToString() const
 	{
 		std::string state = (m_state == State::SoldOut) ? "sold out" : (m_state == State::NoQuarter) ? "waiting for quarter"
 			: (m_state == State::HasQuarter)														 ? "waiting for turn of crank"
@@ -101,7 +110,9 @@ public:
 			   "C++-enabled Standing Gumball Model #2016\n"
 			   "Inventory: "
 			+ std::to_string(m_count) + " gumball" + (m_count != 1 ? "s" : "") + "\n"
-																				 "Machine is "
+																				 "Bank: "
+			+ std::to_string(m_quartersAmount) + " quarter" + (m_quartersAmount != 1 ? "s" : "") + "\n"
+																								   "Machine is "
 			+ state + "\n";
 	}
 
@@ -119,6 +130,8 @@ private:
 				cout << "Oops, out of gumballs\n";
 				m_state = State::SoldOut;
 			}
+			else if (m_quartersAmount == 0)
+				m_state = State::NoQuarter;
 			else
 			{
 				m_state = State::NoQuarter;
@@ -135,6 +148,7 @@ private:
 	}
 
 	unsigned m_count;	// Количество шариков
+	unsigned m_quartersAmount = 0;
 	State m_state = State::SoldOut;
 };
 }
