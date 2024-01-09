@@ -8,7 +8,7 @@
 
 using namespace std;
 
-SCENARIO("test gumble machine creation state with 0 coins")
+SCENARIO("test gumball machine creation state with 0 coins")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(0);
@@ -31,7 +31,7 @@ SCENARIO("test gumble machine creation state with 0 coins")
 							"Machine is sold out\n");
 }
 
-SCENARIO("test gumble machine creation state with 5 coins")
+SCENARIO("test gumball machine creation state with 5 coins")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(5);
@@ -42,7 +42,7 @@ SCENARIO("test gumble machine creation state with 5 coins")
 							"Machine is waiting for quarter\n");
 }
 
-SCENARIO("test state gumble machine insert 1 quarter and turn")
+SCENARIO("test state gumball machine insert 1 quarter and turn")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(5);
@@ -63,7 +63,7 @@ SCENARIO("test state gumble machine insert 1 quarter and turn")
 							"Machine is waiting for quarter\n");
 }
 
-SCENARIO("test state gumble machine insert 2 quarter and turn")
+SCENARIO("test state gumball machine insert 2 quarter and turn")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(5);
@@ -86,7 +86,7 @@ SCENARIO("test state gumble machine insert 2 quarter and turn")
 							"Machine is waiting for turn of crank\n");
 }
 
-SCENARIO("test state gumble machine eject Quarter")
+SCENARIO("test state gumball machine eject Quarter")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(5);
@@ -110,7 +110,7 @@ SCENARIO("test state gumble machine eject Quarter")
 							"Machine is waiting for quarter\n");
 }
 
-SCENARIO("test state gumble machine insert 3")
+SCENARIO("test state gumball machine insert 3")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(3);
@@ -141,7 +141,7 @@ SCENARIO("test state gumble machine insert 3")
 							"Machine is sold out\n");
 }
 
-SCENARIO("test state gumble machine insert coin when out of gumballs")
+SCENARIO("test state gumball machine insert coin when out of gumballs")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(1);
@@ -163,7 +163,7 @@ SCENARIO("test state gumble machine insert coin when out of gumballs")
 							"Machine is sold out\n");
 }
 
-SCENARIO("test state gumble machine turn without a coin")
+SCENARIO("test state gumball machine turn without a coin")
 {
 	ostringstream out;
 	with_state::CGumballMachine m(1);
