@@ -200,3 +200,31 @@ SCENARIO("test eject not insertet quarter")
 							"Bank: 0 quarters\n"
 							"Machine is waiting for quarter\n");
 }
+
+SCENARIO("test state gumball machine eject coins")
+{
+	ostringstream out;
+	with_state::CGumballMachine m(1);
+
+	auto stdoutBuffer = std::cout.rdbuf();
+	std::cout.rdbuf(out.rdbuf());
+	m.InsertQuarter();
+	m.InsertQuarter();
+	m.InsertQuarter();
+	m.TurnCrank();
+	m.EjectQuarter();
+	std::cout.rdbuf(stdoutBuffer);
+	REQUIRE(out.str() == "You inserted a quarter\n"
+						 "You inserted a quarter\n"
+						 "You inserted a quarter\n"
+						 "You turned...\n"
+						 "A gumball comes rolling out the slot...\n"
+						 "Oops, out of gumballs\n"
+						 "Returning quarter");
+
+	REQUIRE(m.ToString() == "Mighty Gumball, Inc.\n"
+							"C++-enabled Standing Gumball Model #2016 (with state)\n"
+							"Inventory: 0 gumballs\n"
+							"Bank: 0 quarters\n"
+							"Machine is sold out\n");
+}
