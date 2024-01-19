@@ -39,13 +39,12 @@ int main()
 	picture->InsertShape(cabin);
 	picture->InsertShape(frontWheel);
 	picture->InsertShape(backWheel);
-	picture->GetFillStyle()->SetColor(0x00FFff);
+	//picture->GetFillStyle()->SetColor(0x00FFff);
 	picture->GetOutlineStyle()->SetColor(0x0000ff);
-	picture->GetOutlineStyle()->SetStrokeSize(9);
+	picture->GetOutlineStyle()->SetLineWidth(9);
 
 	slide.InsertShape(picture);
-	RectD frame = picture->GetFrame();
-	picture->SetFrame(RectD{ 0, 700, 800, 300 });
+	picture->SetFrame(RectD{ 0, 600, 600, 200 });
 	slide.Draw(canvas);
 	canvas.EndDraw();
 }

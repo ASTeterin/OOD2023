@@ -146,7 +146,6 @@
     <ClInclude Include="CommonTypes.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
-    <ClInclude Include="CSimpleShape.h" />
     <ClInclude Include="CSlide.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="ICanvas.h" />

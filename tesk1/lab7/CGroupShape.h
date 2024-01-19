@@ -14,13 +14,6 @@ public:
 	{
 	}
 
-	static std::shared_ptr<CGroupShape> Create(std::vector<std::shared_ptr<IShape>> shapes)
-	{
-		auto shape = std::make_shared<CGroupShape>(std::move(shapes));
-		// TODO: adopt chidren
-		return shape;
-	}
-
 	RectD GetFrame() const override;
 	void SetFrame(const RectD& rect) override;
 

@@ -25,7 +25,7 @@ public:
 			throw std::logic_error("invalid outline style for basic shape");
 
 		canvas.SetLineColor(*outlineStyle->GetColor());
-		canvas.SetLineWidth(*outlineStyle->GetStrokeSize());
+		canvas.SetLineWidth(*outlineStyle->GetLineWidth());
 		auto fillStyle = GetFillStyle();
 		if (fillStyle == nullptr)
 			throw std::logic_error("invalid line style for basic shape");

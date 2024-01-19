@@ -16,17 +16,17 @@ public:
 		m_color = color;
 	}
 
-	std::optional<double> GetStrokeSize() const override
+	std::optional<double> GetLineWidth() const override
 	{
-		return m_strokeSize;
+		return m_lineWidth;
 	}
 
-	void SetStrokeSize(double size) override
+	void SetLineWidth(double size) override
 	{
-		m_strokeSize = size;
+		m_lineWidth = size;
 	}
 
 private:
 	RGBAColor m_color = 0;
-	double m_strokeSize = 0;
+	double m_lineWidth = 0;
 };

@@ -1,8 +1,1 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewPort='0 0 1920 1080'>
-<polygon points = '0.000000,600.000000 1200.000000,600.000000 1200.000000,1100.000000 0.000000,1100.000000' fill = 'rgb(82,78,42)'/>
-<line x1 = '0' y1 = '600' x2 = '1200' y2 = '600' stroke = 'rgb(0,0,0)' stroke-width = '0'/>
-<line x1 = '1200' y1 = '600' x2 = '1200' y2 = '1100' stroke = 'rgb(0,0,0)' stroke-width = '0'/>
-<line x1 = '1200' y1 = '1100' x2 = '0' y2 = '1100' stroke = 'rgb(0,0,0)' stroke-width = '0'/>
-<line x1 = '0' y1 = '1100' x2 = '0' y2 = '600' stroke = 'rgb(0,0,0)' stroke-width = '0'/>
-<ellipse rx='50' ry='50' cx='125' cy='625' stroke='rgb(0,0,0)' stroke-width='0' fill='rgb(231,239,50)' />
-<ellipse rx='50' ry='50' cx='125' cy='625' stroke='rgb(0,0,0)' stroke-width='0' fill='rgb(231,239,50)' />

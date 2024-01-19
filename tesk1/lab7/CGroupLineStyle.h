@@ -3,12 +3,6 @@
 #include <functional>
 #include "IShape.h"
 
-class IOutlineStyleEnumerator
-{
-public:
-	virtual void EnumerateOutlineStyles(const std::function<bool(IOutlineStyle& style)>& callback) const = 0;
-};
-
 class CGroupLineStyle : public IOutlineStyle
 {
 public:
@@ -34,21 +28,21 @@ public:
 			shape->GetOutlineStyle()->SetColor(color);
 	}
 
-	std::optional<double> GetStrokeSize() const override
+	std::optional<double> GetLineWidth() const override
 	{
-		auto firstElemWidth = m_shapes[0]->GetOutlineStyle()->GetStrokeSize();
+		auto firstElemWidth = m_shapes[0]->GetOutlineStyle()->GetLineWidth();
 		for (auto& shape : m_shapes)
 		{
-			if (firstElemWidth != shape->GetOutlineStyle()->GetStrokeSize())
+			if (firstElemWidth != shape->GetOutlineStyle()->GetLineWidth())
 				return std::nullopt;
 		}
 		return firstElemWidth;
 	}
 
-	void SetStrokeSize(double size) override
+	void SetLineWidth(double size) override
 	{
 		for (auto& shape : m_shapes)
-			shape->GetOutlineStyle()->SetStrokeSize(size);
+			shape->GetOutlineStyle()->SetLineWidth(size);
 	}
 
 private:

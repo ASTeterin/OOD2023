@@ -10,12 +10,10 @@ public:
 	CTriangle(const PointD& p1, const PointD& p2, const PointD& p3)
 		: CShape()
 	{
-		double xCoords[] = { p1.x, p2.x, p3.x };
-		double yCoords[] = { p1.y, p2.y, p3.y };
-		double left = *std::min_element(xCoords, xCoords + 3);
-		double right = *std::max_element(xCoords, xCoords + 3);
-		double bottom = *std::min_element(yCoords, yCoords + 3);
-		double top = *std::max_element(yCoords, yCoords + 3);
+		auto right = std::max({ p1.x, p2.x, p3.x });
+		auto left = std::min({ p1.x, p2.x, p3.x });
+		auto top = std::max({ p1.y, p2.y, p3.y });
+		auto bottom = std::min({ p1.y, p2.y, p3.y });
 		RectD rect = {
 			left,
 			top,
@@ -32,7 +30,7 @@ public:
 			throw std::logic_error("invalid outline style for basic shape");
 
 		canvas.SetLineColor(*outlineStyle->GetColor());
-		canvas.SetLineWidth(*outlineStyle->GetStrokeSize());
+		canvas.SetLineWidth(*outlineStyle->GetLineWidth());
 		auto fillStyle = GetFillStyle();
 		if (fillStyle == nullptr)
 			throw std::logic_error("invalid line style for basic shape");
